@@ -1,6 +1,6 @@
 # About this project
 
-This project uses React, redux, webpack, and Babel.
+This project uses React, redux, webpack, and Babel. It DOES NOT use `create-react-app` and `react-scripts`
 
 You can refer to this README for basic command and structure.
 
