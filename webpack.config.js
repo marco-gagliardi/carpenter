@@ -15,6 +15,7 @@ module.exports = {
     contentBase: bundleOutputDir
   },
   plugins: [
+    //files to be copied into the build
     new copyWebpackPlugin([{from: 'public/'}])
   ],
   module: {
