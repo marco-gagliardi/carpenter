@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    font-family: Roboto-Bold, Arial, sans-serif;
+}
+p {
+    margin: 0;
+}
+.Page__content {
+    margin: 90px 25px 0 25px;
+}
+
+@media screen and (max-width: 600px) {
+    .Page__content {
+        margin: 70px 15px 0 15px;
+    }
+}

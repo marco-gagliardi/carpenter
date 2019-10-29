@@ -1,0 +1,33 @@
+.Navbar {
+    display:flex;
+    align-items: center;
+    height: 60px;
+    padding: 5px 15px;
+    position: sticky;
+    z-index: 1000;
+    border-bottom: 1px solid black
+}
+.Navbar__logo {
+    height: 50px;
+    cursor: pointer;
+}
+
+.Navbar__section {
+    cursor: pointer;
+}
+
+.Navbar--sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .Navbar {
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .Navbar__logo {
+        height: 30px;
+    }
+}
