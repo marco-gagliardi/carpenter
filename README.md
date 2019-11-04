@@ -1,6 +1,7 @@
 # About this project
 
-This project uses React, redux, webpack, and Babel. It DOES NOT use `create-react-app` and `react-scripts`
+This  is a quick scaffold for kicking off a project based on the common stack: React, redux, webpack, and Babel. 
+It DOES NOT use `create-react-app` or `react-scripts`
 
 You can refer to this README for basic command and structure.
 
