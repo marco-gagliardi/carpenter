@@ -1,17 +1,17 @@
 import React from 'react'
 import Navbar from "../components/Navbar";
-const Home = (props) => {
+import UsersContainer from "../containers/UsersContainer";
+const Users = (props) => {
   return (
     <div>
       <Navbar/>
       <div className='Page__content'>
-        {/* Content here */}
-        This is the homepage
+        <UsersContainer />
       </div>
     </div>
   )
 };
 
-Home.propTypes = {};
+Users.propTypes = {};
 
-export default Home
+export default Users

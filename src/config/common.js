@@ -1,7 +1,7 @@
 export default {
   nameSpace: 'projectNamespace',
   api: {
-    baseUrl: 'https://api.example.com/v1',
+    baseUrl: 'https://jsonplaceholder.typicode.com',
     defaultParams: {}
   }
 }

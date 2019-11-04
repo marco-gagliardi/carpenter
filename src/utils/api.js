@@ -18,11 +18,14 @@ const makeRequest = (method = 'get', endpoint, options = {}) => {
   return axios({url, method, ...options})
     .then(response => response.data)
     .catch(response => {
-      console.error("Network error: ", e);
+      console.error("Network error: ", response);
       throw Error(response);
     })
 
 };
-
-export const getUser = id => makeRequest('get', `users/${id}`).then(response => response.data);
+export const createUser = payload => makeRequest('post', `users`, {payload});
+export const getUser = id => makeRequest('get', `users/${id}`);
+export const loadUsers = params => makeRequest('get', `users`, {params});
+export const updateUser = (id, payload) => makeRequest('post', `users/${id}`, {payload});
+export const deleteUser = id => makeRequest('delete', `users/${id}`);
 

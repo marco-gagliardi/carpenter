@@ -10,6 +10,9 @@ const Navbar = (props) => {
       <Link to='/'>
         <img src={logo} className='Navbar__logo' alt='logo' />
       </Link>
+      <Link to='/users'>
+        Users
+      </Link>
       {props.section &&
         <span className='Navbar__section' data-testid="navbar-section">{props.section}</span>
       }
