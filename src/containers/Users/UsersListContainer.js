@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from "react";
 import {connect} from 'react-redux'
 import {func} from 'prop-types'
-import {getUsers} from "../stores/users";
+import {getUsers} from "../../stores/users";
+import {Link} from "react-router-dom";
 
 const PAGE_SIZE = 5
-const UsersContainer = props => {
+const UsersListContainer = props => {
   const [users, setUsers] = useState([]);
-  const [params, setParams] = useState({lastId: null, limit: PAGE_SIZE});
+  const [params, setParams] = useState({lastId: undefined, limit: PAGE_SIZE});
   const [loading, setLoading] = useState(true);
 
   const load = () => {
@@ -33,12 +34,12 @@ const UsersContainer = props => {
   }
   return (
     <ul>
-      {users.map(u => <li key={u.id}>{u.name}</li>)}
+      {users.map(u => <li key={u.id}><Link to={`/users/${u.id}`}>{u.name}</Link></li>)}
     </ul>
   )
 }
 
-UsersContainer.propTypes = {
+UsersListContainer.propTypes = {
   load: func
 }
 const mapStateToProps = state => {
@@ -52,4 +53,4 @@ const mapDispatchToProps = dispatch => {
     load: (params) => dispatch(getUsers(params))
   })
 }
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersListContainer)

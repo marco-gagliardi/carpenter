@@ -18,7 +18,7 @@ const makeRequest = (method = 'get', endpoint, options = {}) => {
   return axios({url, method, ...options})
     .then(response => response.data)
     .catch(response => {
-      console.error("Network error: ", response);
+      console.error("HTTP error: ", response);
       throw Error(response);
     })
 
