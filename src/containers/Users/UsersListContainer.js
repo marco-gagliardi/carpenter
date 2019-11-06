@@ -24,6 +24,11 @@ const UsersListContainer = props => {
 
   const remove = (id) => {
     props.delete(id)
+      .catch(() => {})
+      .then(() => {
+        setList(list.filter(x => x !== id))
+      })
+      .finally(() => setLoading(false))
   }
 
   useEffect(() => {
@@ -38,9 +43,15 @@ const UsersListContainer = props => {
       <ul>
         {list.map(id => {
           const u = props.users[id]
+          if (u) {
             return (
-              <li key={u.id}><Link to={`/users/${u.id}`}>{u.name}</Link> <button>Edit</button> <button>Delete</button></li>
+              <li key={u.id}><Link to={`/users/${u.id}`}>{u.name}</Link>
+                <Link to={`/users/${u.id}/edit`}><button>Edit</button></Link>
+                <button onClick={() => remove(u.id)}>Delete</button></li>
             )
+          } else {
+            return null
+          }
         })}
       </ul>
     )

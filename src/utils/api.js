@@ -18,14 +18,13 @@ const makeRequest = (method = 'get', endpoint, options = {}) => {
   return axios({url, method, ...options})
     .then(response => response.data)
     .catch(response => {
-      console.error("HTTP error: ", response);
-      throw Error(response);
+      console.dir(response);
+      return Promise.reject(response);
     })
-
 };
 export const createUser = payload => makeRequest('post', `users`, {payload});
 export const getUser = id => makeRequest('get', `users/${id}`);
 export const loadUsers = params => makeRequest('get', `users`, {params});
-export const updateUser = (id, payload) => makeRequest('post', `users/${id}`, {payload});
+export const updateUser = (id, payload) => makeRequest('put', `users/${id}`, {payload});
 export const deleteUser = id => makeRequest('delete', `users/${id}`);
 

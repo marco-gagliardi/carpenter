@@ -24,7 +24,7 @@ const EditUserContainer = props => {
     return <p>Cannot load element</p>
   }
 
-  return (<UserForm onSubmit={props.edit}/>)
+  return (<UserForm onSubmit={props.edit} user={props.user}/>)
 }
 
 EditUserContainer.propTypes = {
@@ -39,6 +39,6 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   load: () => dispatch(loadUser(ownProps.id)),
-  edit: model => dispatch(editUser(model))
+  edit: model => dispatch(editUser(model.id, model))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(EditUserContainer)

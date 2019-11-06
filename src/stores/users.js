@@ -34,7 +34,7 @@ export default function reducer (state = DEFAULT_STATE, action) {
     case UPDATE.FULFILLED: {
       return {
         ...state,
-        [action.meta.id]: {...state[action.meta.id], ...action.payload}
+        [action.meta.id]: action.meta.payload
       }
     }
     case DELETE.FULFILLED: {
@@ -84,7 +84,7 @@ export function editUser (id, payload) {
   return {
     type: UPDATE,
     payload: updateUser(id, payload),
-    meta: {id}
+    meta: {id, payload}
   }
 }
 

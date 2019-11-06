@@ -13,11 +13,10 @@ const UserForm = props => {
     e.preventDefault()
     return props.onSubmit(model)
   }
-
   return (
     <form onSubmit={handleSubmit}>
       {Object.keys(model).map(key => {
-        return <p key={key}>{`${key}: `}<input name={`${key}`} onChange={({value}) => setModel({name: value})}/></p>
+        return <p key={key}>{`${key}: `}<input type='text' name={`${key}`} value={model[key]} onChange={(event) => setModel({...model, [key]: event.target.value})}/></p>
       })}
       <p><button type='submit'>Ok</button></p>
     </form>
