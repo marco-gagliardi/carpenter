@@ -70,8 +70,10 @@ export function loadUser (id) {
   }
 }
 
-export function getUsers (params) {
+export function getUsers ({limit, lastId, ...params}) {
   /* params should be something like {lastId, orderBy, orderDir, limit} */
+  if (limit) params._limit = limit
+  if (lastId) params.id_gte = lastId
   return (dispatch) => {
     return dispatch({
       type: LOAD,

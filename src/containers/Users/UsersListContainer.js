@@ -1,8 +1,9 @@
 import React, {useState, useEffect, Fragment} from "react";
 import {connect} from 'react-redux'
-import {func, object} from 'prop-types'
-import {getUsers, removeUser} from "../../stores/users";
 import {Link} from "react-router-dom";
+import {func, object} from 'prop-types'
+import uniq from 'lodash/uniq'
+import {getUsers, removeUser} from "../../stores/users";
 
 const PAGE_SIZE = 5
 const UsersListContainer = props => {
@@ -16,7 +17,7 @@ const UsersListContainer = props => {
       .then(payload => {
         const length = payload.length
         const lastId = !length ? null : payload[length - 1].id
-        setList([...list, ...payload.map(x => x.id)])
+        setList(uniq([...list, ...payload.map(x => x.id)]))
         setParams({...params, lastId})
       })
       .finally(() => setLoading(false))
@@ -36,24 +37,26 @@ const UsersListContainer = props => {
   }, []);
 
   const renderList = () => {
-    if(!list.length) {
-      return <div>No elements... </div>
-    }
     return (
-      <ul>
-        {list.map(id => {
-          const u = props.users[id]
-          if (u) {
-            return (
-              <li key={u.id}><Link to={`/users/${u.id}`}>{u.name}</Link>
-                <Link to={`/users/${u.id}/edit`}><button>Edit</button></Link>
-                <button onClick={() => remove(u.id)}>Delete</button></li>
-            )
-          } else {
-            return null
-          }
-        })}
-      </ul>
+      list.length === 0
+        ? <div>No elements... </div>
+        : <Fragment>
+          <ul>
+            {list.map(id => {
+              const u = props.users[id]
+              if (u) {
+                return (
+                  <li key={u.id}><Link to={`/users/${u.id}`}>{u.name}</Link>
+                    <Link to={`/users/${u.id}/edit`}><button>Edit</button></Link>
+                    <button onClick={() => remove(u.id)}>Delete</button></li>
+                )
+              } else {
+                return null
+              }
+            })}
+          </ul>
+          <p><button onClick={() => load()}>More</button></p>
+        </Fragment>
     )
   }
 
@@ -84,7 +87,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return ({
     load: (params) => dispatch(getUsers(params)),
-    delete: (id) => dispatch(removeUser(id)),
+    delete: (id) => dispatch(removeUser(id))
   })
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UsersListContainer)

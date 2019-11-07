@@ -5,7 +5,8 @@
     padding: 5px 15px;
     position: sticky;
     z-index: 1000;
-    border-bottom: 1px solid black
+    border-bottom: 1px solid black;
+    background-color: white;
 }
 .Navbar__logo {
     height: 50px;
