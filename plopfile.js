@@ -1,19 +1,24 @@
+const pluralize = require('pluralize')
+
 module.exports = function (plop) {
-  // controller generator
+  plop.setHelper('plural', (txt) => pluralize(txt));
+  // resource generator
   plop.setGenerator('resource', {
     description: 'Application resource management logic (CRUD actions + store management)',
     prompts: [
       {
         type: 'input',
         name: 'name',
-        message: 'Name of the resource:'
+        message: 'Name of the resource (singular):'
       },
 
     ],
-    actions: [{
-      type: 'add',
-      path: 'src/sores/{{name}}.js',
-      templateFile: 'plop-templates/controller.hbs'
-    }]
+    actions: [
+      {
+        type: 'add',
+        path: 'src/stores/{{lowerCase (plural name)}}.js',
+        templateFile: 'plop-templates/store-template.hbs'
+      }
+    ]
   });
-};
+}
