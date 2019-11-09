@@ -1,5 +1,7 @@
 import { defineAsyncActions } from './utils'
-import {getUser, loadUsers, deleteUser, updateUser, createUser} from "../utils/api";
+import {getResource, loadResources, deleteResource, updateResource, createResource} from "../utils/api";
+
+const RESOURCE = 'users'
 const CREATE = defineAsyncActions('CREATE_USER');
 const FETCH = defineAsyncActions('FETCH_USER');
 const DELETE = defineAsyncActions('DELETE_USER');
@@ -54,7 +56,7 @@ export default function reducer (state = DEFAULT_STATE, action) {
 export function addUser (payload) {
   return {
     type: CREATE,
-    payload: createUser(payload)
+    payload: createResource(RESOURCE, payload)
   }
 }
 
@@ -64,7 +66,7 @@ export function loadUser (id) {
 
     return dispatch({
       type: FETCH,
-      payload: getUser(id, params),
+      payload: getResource(RESOURCE, id, params),
       meta: {id}
     })
   }
@@ -77,7 +79,7 @@ export function getUsers ({limit, lastId, ...params}) {
   return (dispatch) => {
     return dispatch({
       type: LOAD,
-      payload: loadUsers(params),
+      payload: loadResources(RESOURCE, params),
     }).then(payload => payload.value)
   }
 }
@@ -85,7 +87,7 @@ export function getUsers ({limit, lastId, ...params}) {
 export function editUser (id, payload) {
   return {
     type: UPDATE,
-    payload: updateUser(id, payload),
+    payload: updateResource(RESOURCE, id, payload),
     meta: {id, payload}
   }
 }
@@ -94,7 +96,7 @@ export function removeUser (id) {
   return dispatch => {
     return dispatch({
       type: DELETE,
-      payload: deleteUser(id),
+      payload: deleteResource(RESOURCE, id),
       meta: {id}
     })
   }
