@@ -2,11 +2,11 @@ import { defineAsyncActions } from './utils'
 import {getResource, loadResources, deleteResource, updateResource, createResource} from "../utils/api";
 
 const RESOURCE = 'users'
-const CREATE = defineAsyncActions('CREATE_USER');
-const FETCH = defineAsyncActions('FETCH_USER');
-const DELETE = defineAsyncActions('DELETE_USER');
-const UPDATE = defineAsyncActions('UPDATE_USER');
+const CREATE = defineAsyncActions('CREATE_USERS');
+const FETCH = defineAsyncActions('FETCH_USERS');
 const LOAD = defineAsyncActions('LOAD_USERS');
+const UPDATE = defineAsyncActions('UPDATE_USERS');
+const DELETE = defineAsyncActions('DELETE_USERS');
 
 const DEFAULT_STATE = {
 };
@@ -53,14 +53,14 @@ export default function reducer (state = DEFAULT_STATE, action) {
       return state
   }
 }
-export function addUser (payload) {
+export function createUsers (payload) {
   return {
     type: CREATE,
     payload: createResource(RESOURCE, payload)
   }
 }
 
-export function loadUser (id) {
+export function fetchUsers (id) {
   return dispatch => {
     const params = {};
 
@@ -72,7 +72,7 @@ export function loadUser (id) {
   }
 }
 
-export function getUsers ({limit, lastId, ...params}) {
+export function loadUsers ({limit, lastId, ...params}) {
   /* params should be something like {lastId, orderBy, orderDir, limit} */
   if (limit) params._limit = limit
   if (lastId) params.id_gte = lastId
@@ -84,7 +84,7 @@ export function getUsers ({limit, lastId, ...params}) {
   }
 }
 
-export function editUser (id, payload) {
+export function updateUsers (id, payload) {
   return {
     type: UPDATE,
     payload: updateResource(RESOURCE, id, payload),
@@ -92,7 +92,7 @@ export function editUser (id, payload) {
   }
 }
 
-export function removeUser (id) {
+export function deleteUsers (id) {
   return dispatch => {
     return dispatch({
       type: DELETE,

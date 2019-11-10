@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {connect} from 'react-redux'
 import {func, object} from "prop-types";
-import {editUser, loadUser} from "../../stores/users";
+import {updateUsers, fetchUsers} from "../../stores/users";
 import UserForm from "../../components/Users/UserForm";
 
 const EditUserContainer = props => {
@@ -38,7 +38,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  load: () => dispatch(loadUser(ownProps.id)),
-  edit: model => dispatch(editUser(model.id, model))
+  load: () => dispatch(fetchUsers(ownProps.id)),
+  edit: model => dispatch(updateUsers(model.id, model))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(EditUserContainer)

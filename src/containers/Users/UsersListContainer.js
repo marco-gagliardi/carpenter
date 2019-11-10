@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from "react-router-dom";
 import {func, object} from 'prop-types'
 import uniq from 'lodash/uniq'
-import {getUsers, removeUser} from "../../stores/users";
+import {loadUsers, deleteUsers} from "../../stores/users";
 
 const PAGE_SIZE = 5
 const UsersListContainer = props => {
@@ -86,8 +86,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return ({
-    load: (params) => dispatch(getUsers(params)),
-    delete: (id) => dispatch(removeUser(id))
+    load: (params) => dispatch(loadUsers(params)),
+    delete: (id) => dispatch(deleteUsers(id))
   })
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UsersListContainer)

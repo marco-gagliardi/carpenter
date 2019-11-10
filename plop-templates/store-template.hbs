@@ -1,101 +1,103 @@
 import { defineAsyncActions } from './utils'
-import { get{{properCase name}}, load{{properCase (plural name)}}, delete{{properCase name}}, update{{properCase name}}, create{{properCase name}} } from "../utils/api";
+import {getResource, loadResources, deleteResource, updateResource, createResource} from "../utils/api";
+
+const RESOURCE = '{{plural name}}'
 const CREATE = defineAsyncActions('CREATE_{{constantCase name}}');
 const FETCH = defineAsyncActions('FETCH_{{constantCase name}}');
-const DELETE = defineAsyncActions('DELETE_{{constantCase name}}');
-const UPDATE = defineAsyncActions('UPDATE_{{constantCase name}}');
 const LOAD = defineAsyncActions('LOAD_{{constantCase (plural name)}}');
+const UPDATE = defineAsyncActions('UPDATE_{{constantCase name}}');
+const DELETE = defineAsyncActions('DELETE_{{constantCase name}}');
 
 const DEFAULT_STATE = {
 };
 
 export default function reducer (state = DEFAULT_STATE, action) {
-switch (action.type) {
-case CREATE.FULFILLED: {
-return {
-...state,
-[action.payload.id]: action.payload
-}
-}
-case FETCH.FULFILLED: {
-return {
-...state,
-[action.meta.id]: action.payload
-}
-}
-case LOAD.FULFILLED: {
-return {
-...state,
-...(action.payload.reduce((acc, curr) => {
-return ({...acc, [curr.id]: {...curr}})
-}, {}))
-}
-}
-case UPDATE.FULFILLED: {
-return {
-...state,
-[action.meta.id]: action.meta.payload
-}
-}
-case DELETE.FULFILLED: {
-return {
-...(Object.values(state).reduce((acc, curr) => {
-if (curr.id === action.meta.id) {
-return ({...acc})
-}
-return ({...acc, [curr.id]: {...curr}})
-}, {}))
-}
-}
-default:
-return state
-}
+  switch (action.type) {
+    case CREATE.FULFILLED: {
+      return {
+        ...state,
+        [action.payload.id]: action.payload
+      }
+    }
+    case FETCH.FULFILLED: {
+      return {
+        ...state,
+        [action.meta.id]: action.payload
+      }
+    }
+    case LOAD.FULFILLED: {
+      return {
+        ...state,
+        ...(action.payload.reduce((acc, curr) => {
+          return ({...acc, [curr.id]: {...curr}})
+        }, {}))
+      }
+    }
+    case UPDATE.FULFILLED: {
+      return {
+        ...state,
+        [action.meta.id]: action.meta.payload
+      }
+    }
+    case DELETE.FULFILLED: {
+      return {
+        ...(Object.values(state).reduce((acc, curr) => {
+          if (curr.id === action.meta.id) {
+            return ({...acc})
+          }
+          return ({...acc, [curr.id]: {...curr}})
+        }, {}))
+      }
+    }
+    default:
+      return state
+  }
 }
 export function add{{properCase name}} (payload) {
-return {
-type: CREATE,
-payload: create{{properCase name}}(payload)
-}
+  return {
+    type: CREATE,
+    payload: createResource(RESOURCE, payload)
+  }
 }
 
 export function load{{properCase name}} (id) {
-return dispatch => {
-const params = {};
+  return dispatch => {
+    const params = {};
 
-return dispatch({
-type: FETCH,
-payload: get{{properCase name}}(id, params),
-meta: {id}
-})
-}
+    return dispatch({
+      type: FETCH,
+      payload: getResource(RESOURCE, id, params),
+      meta: {id}
+    })
+  }
 }
 
 export function get{{properCase (plural name)}} ({limit, lastId, ...params}) {
-/* params should be something like {lastId, orderBy, orderDir, limit} */
-if (limit) params._limit = limit
-if (lastId) params.id_gte = lastId
-return (dispatch) => {
-return dispatch({
-type: LOAD,
-payload: load{{properCase (plural name)}}(params),
-}).then(payload => payload.value)
-}
+  /* params should be something like {lastId, orderBy, orderDir, limit} */
+  if (limit) params._limit = limit
+  if (lastId) params.id_gte = lastId
+  return (dispatch) => {
+    return dispatch({
+      type: LOAD,
+      payload: loadResources(RESOURCE, params),
+    }).then(payload => payload.value)
+  }
 }
 
 export function edit{{properCase name}} (id, payload) {
-return {
-type: UPDATE,
-payload: update{{properCase name}}(id, payload),
-meta: {id, payload}
-}
+  return {
+    type: UPDATE,
+    payload: updateResource(RESOURCE, id, payload),
+    meta: {id, payload}
+  }
 }
 
 export function remove{{properCase name}} (id) {
-return dispatch => {
-return dispatch({
-type: DELETE,
-payload: delete{{properCase name}}(id),
-meta: {id}
-})
-}
+  return dispatch => {
+    return dispatch({
+      type: DELETE,
+      payload: deleteResource(RESOURCE, id),
+      meta: {id}
+    })
+  }
 }
