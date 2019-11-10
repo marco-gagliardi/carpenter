@@ -2,11 +2,11 @@ import { defineAsyncActions } from './utils'
 import {getResource, loadResources, deleteResource, updateResource, createResource} from "../utils/api";
 
 const RESOURCE_ENDPOINT = 'users'
-const CREATE = defineAsyncActions('CREATE_USER');
-const FETCH = defineAsyncActions('FETCH_USER');
-const DELETE = defineAsyncActions('DELETE_USER');
-const UPDATE = defineAsyncActions('UPDATE_USER');
+const CREATE = defineAsyncActions('CREATE_USERS');
+const FETCH = defineAsyncActions('FETCH_USERS');
 const LOAD = defineAsyncActions('LOAD_USERS');
+const UPDATE = defineAsyncActions('UPDATE_USERS');
+const DELETE = defineAsyncActions('DELETE_USERS');
 
 const DEFAULT_STATE = {
 };

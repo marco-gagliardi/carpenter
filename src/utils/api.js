@@ -22,9 +22,10 @@ const makeRequest = (method = 'get', endpoint, options = {}) => {
       return Promise.reject(response);
     })
 };
-export const createResource = (resource, payload) => makeRequest('post', `${resource}`, {payload});
-export const getResource = (resource, id) => makeRequest('get', `${resource}/${id}`);
-export const loadResources = (resource, params) => makeRequest('get', `${resource}`, {params});
-export const updateResource = (resource, id, payload) => makeRequest('put', `${resource}/${id}`, {payload});
-export const deleteResource = (resource, id) => makeRequest('delete', `${resource}/${id}`);
+export const createResource = (endpoint, payload) => makeRequest('post', `${endpoint}`, {payload});
+export const getResource = (endpoint, id) => makeRequest('get', `${endpoint}/${id}`);
+export const loadResources = (endpoint, params) => makeRequest('get', `${endpoint}`, {params});
+export const updateResource = (endpoint, id, payload) => makeRequest('put', `${endpoint}/${id}`, {payload});
+export const patchResource = (endpoint, id, payload) => makeRequest('patch', `${endpoint}/${id}`, {payload});
+export const deleteResource = (endpoint, id) => makeRequest('delete', `${endpoint}/${id}`);
 
