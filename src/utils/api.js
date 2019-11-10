@@ -5,6 +5,11 @@ const BASE_URL = config.api.baseUrl;
 const DEFAULT_PARAMS = config.api.defaultParams;
 const DEFAULT_OPTIONS = { headers: {'Content-Type': 'application/json'} };
 
+export const OPERATORS = {
+  limit: '_limit',
+  lastId: 'id_gte'
+}
+
 const makeRequest = (method = 'get', endpoint, options = {}) => {
   options = {
     ...DEFAULT_OPTIONS,

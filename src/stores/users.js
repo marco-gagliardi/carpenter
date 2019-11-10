@@ -1,11 +1,20 @@
 import { defineAsyncActions } from './utils'
-import {getResource, loadResources, deleteResource, updateResource, createResource} from "../utils/api";
+import {
+  getResource,
+  loadResources,
+  deleteResource,
+  updateResource,
+  createResource,
+  OPERATORS,
+  patchResource
+} from "../utils/api";
 
 const RESOURCE_ENDPOINT = 'users'
 const CREATE = defineAsyncActions('CREATE_USERS');
 const FETCH = defineAsyncActions('FETCH_USERS');
 const LOAD = defineAsyncActions('LOAD_USERS');
 const UPDATE = defineAsyncActions('UPDATE_USERS');
+const PATCH = defineAsyncActions('PATCH_USERS');
 const DELETE = defineAsyncActions('DELETE_USERS');
 
 const DEFAULT_STATE = {
@@ -37,6 +46,20 @@ export default function reducer (state = DEFAULT_STATE, action) {
       return {
         ...state,
         [action.meta.id]: action.meta.payload
+      }
+    }
+    /* Optimistic update approach */
+    case PATCH.PENDING: {
+      return {
+        ...state,
+        [action.meta.id]: {...action.meta.payload}
+      }
+    }
+    /* optimistic update fallback: revert change */
+    case PATCH.REJECTED: {
+      return {
+        ...state,
+        [action.meta.id]: action.meta.snapshot
       }
     }
     case DELETE.FULFILLED: {
@@ -74,8 +97,8 @@ export function fetchUsers (id) {
 
 export function loadUsers ({limit, lastId, ...params}) {
   /* params should be something like {lastId, orderBy, orderDir, limit} */
-  if (limit) params._limit = limit
-  if (lastId) params.id_gte = lastId
+  if (limit) params[OPERATORS.limit] = limit
+  if (lastId) params[OPERATORS.lastId] = lastId
   return (dispatch) => {
     return dispatch({
       type: LOAD,
@@ -89,6 +112,16 @@ export function updateUsers (id, payload) {
     type: UPDATE,
     payload: updateResource(RESOURCE_ENDPOINT, id, payload),
     meta: {id, payload}
+  }
+}
+
+export function patchUsers (id, payload) {
+  return (dispatch, getState) => {
+    return dispatch({
+      type: UPDATE,
+      payload: patchResource(RESOURCE_ENDPOINT, id, payload),
+      meta: {id, payload, snapshot: getState()['users'][id]}
+    })
   }
 }
 
