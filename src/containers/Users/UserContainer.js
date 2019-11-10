@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {connect} from 'react-redux'
-import {loadUser} from "../../stores/users";
+import {fetchUsers} from "../../stores/users";
 
 const UserContainer = props => {
 
@@ -34,7 +34,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  load: () => dispatch(loadUser(ownProps.id))
+  load: () => dispatch(fetchUsers(ownProps.id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserContainer)

@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --open --mode development",
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --open --mode development",
     "build": "npm run build:development",
-    "build:development": "webpack --mode development",
-    "build:production": "webpack --mode production",
-    "test": "jest --verbose"
+    "build:development": "./node_modules/webpack/bin/webpack.js --mode development",
+    "build:production": "./node_modules/webpack/bin/webpack.js --mode production",
+    "test": "./node_modules/jest/bin/jest.js --verbose",
+    "generate": "./node_modules/plop/bin/plop.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "classnames": "^2.2.6",
     "history": "^4.10.1",
     "lodash": "^4.17.15",
+    "pluralize": "^8.0.0",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-redux": "^7.1.1",
@@ -42,6 +44,7 @@
     "file-loader": "^4.2.0",
     "html-loader": "^0.5.5",
     "jest": "^24.9.0",
+    "plop": "^2.5.3",
     "prop-types": "^15.7.2",
     "react-test-renderer": "^16.10.2",
     "style-loader": "^1.0.0",

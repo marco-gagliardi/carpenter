@@ -1,12 +1,12 @@
 import { defineAsyncActions } from './utils'
 import {getResource, loadResources, deleteResource, updateResource, createResource} from "../utils/api";
 
-const RESOURCE_ENDPOINT = 'users'
-const CREATE = defineAsyncActions('CREATE_USERS');
-const FETCH = defineAsyncActions('FETCH_USERS');
-const LOAD = defineAsyncActions('LOAD_USERS');
-const UPDATE = defineAsyncActions('UPDATE_USERS');
-const DELETE = defineAsyncActions('DELETE_USERS');
+const RESOURCE = '{{plural name}}'
+const CREATE = defineAsyncActions('CREATE_{{constantCase name}}');
+const FETCH = defineAsyncActions('FETCH_{{constantCase name}}');
+const LOAD = defineAsyncActions('LOAD_{{constantCase (plural name)}}');
+const UPDATE = defineAsyncActions('UPDATE_{{constantCase name}}');
+const DELETE = defineAsyncActions('DELETE_{{constantCase name}}');
 
 const DEFAULT_STATE = {
 };
@@ -53,50 +53,50 @@ export default function reducer (state = DEFAULT_STATE, action) {
       return state
   }
 }
-export function createUsers (payload) {
+export function add{{properCase name}} (payload) {
   return {
     type: CREATE,
-    payload: createResource(RESOURCE_ENDPOINT, payload)
+    payload: createResource(RESOURCE, payload)
   }
 }
 
-export function fetchUsers (id) {
+export function load{{properCase name}} (id) {
   return dispatch => {
     const params = {};
 
     return dispatch({
       type: FETCH,
-      payload: getResource(RESOURCE_ENDPOINT, id, params),
+      payload: getResource(RESOURCE, id, params),
       meta: {id}
     })
   }
 }
 
-export function loadUsers ({limit, lastId, ...params}) {
+export function get{{properCase (plural name)}} ({limit, lastId, ...params}) {
   /* params should be something like {lastId, orderBy, orderDir, limit} */
   if (limit) params._limit = limit
   if (lastId) params.id_gte = lastId
   return (dispatch) => {
     return dispatch({
       type: LOAD,
-      payload: loadResources(RESOURCE_ENDPOINT, params),
+      payload: loadResources(RESOURCE, params),
     }).then(payload => payload.value)
   }
 }
 
-export function updateUsers (id, payload) {
+export function edit{{properCase name}} (id, payload) {
   return {
     type: UPDATE,
-    payload: updateResource(RESOURCE_ENDPOINT, id, payload),
+    payload: updateResource(RESOURCE, id, payload),
     meta: {id, payload}
   }
 }
 
-export function deleteUsers (id) {
+export function remove{{properCase name}} (id) {
   return dispatch => {
     return dispatch({
       type: DELETE,
-      payload: deleteResource(RESOURCE_ENDPOINT, id),
+      payload: deleteResource(RESOURCE, id),
       meta: {id}
     })
   }
