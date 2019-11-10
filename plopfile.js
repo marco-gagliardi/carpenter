@@ -9,9 +9,14 @@ module.exports = function (plop) {
       {
         type: 'input',
         name: 'name',
-        message: 'Name of the resource (singular):'
+        message: 'Unique name of the unitary resource, i.e. \'user\':'
       },
-
+      {
+        type: 'input',
+        name: 'endpoint',
+        default: (answers) => pluralize(answers.name),
+        message: 'Endpoint:'
+      },
     ],
     actions: [
       {
