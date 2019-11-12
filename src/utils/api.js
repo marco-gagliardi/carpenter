@@ -19,9 +19,8 @@ const makeRequest = (method = 'get', endpoint, options = {}) => {
   const url = `${BASE_URL}/${endpoint}`;
   return axios({url, method, ...options})
     .then(response => response.data)
-    .catch(response => {
-      console.dir(response);
-      return Promise.reject(response);
+    .catch(error => {
+      return Promise.reject(error.response);
     })
 };
 export const createResource = (endpoint, payload) => makeRequest('post', `${endpoint}`, {payload});
