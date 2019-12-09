@@ -1,10 +1,15 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import promiseMiddleware from 'redux-promise-middleware'
 import thunk from 'redux-thunk'
+// STORES
 import users from './users'
+// END OF STORES
 
 const reducers = combineReducers({
-  users
+  // REDUCERS
+  users,
+	comments,
+// END OF REDUCERS
 });
 
 const middlewares = [
