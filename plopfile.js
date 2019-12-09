@@ -23,6 +23,18 @@ module.exports = function (plop) {
         type: 'add',
         path: 'src/stores/{{lowerCase (plural name)}}.js',
         templateFile: 'plop-templates/store-template.hbs'
+      },
+      {
+        type: 'modify',
+        path: 'src/stores/index.js',
+        pattern: /(\/\/ END OF STORES)/g,
+        template: 'import {{lowerCase (plural name)}} from \'./{{lowerCase (plural name)}}\' \n$1',
+      },
+      {
+        type: 'modify',
+        path: 'src/stores/index.js',
+        pattern: /(\/\/ END OF REDUCERS)/g,
+        template: '\t{{lowerCase (plural name)}},\n$1',
       }
     ]
   });
