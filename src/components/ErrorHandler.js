@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { any } from 'prop-types'
 
 class ErrorHandler extends Component {
   constructor (props) {
@@ -24,6 +25,10 @@ class ErrorHandler extends Component {
     }
     return this.props.children
   }
+}
+
+ErrorHandler.propTypes = {
+  children: any
 }
 
 export default ErrorHandler
