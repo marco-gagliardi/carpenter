@@ -8,7 +8,6 @@ import users from './users'
 const reducers = combineReducers({
   // REDUCERS
   users,
-	comments,
 // END OF REDUCERS
 });
 
