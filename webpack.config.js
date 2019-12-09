@@ -3,7 +3,9 @@ const bundleOutputDir = './dist';
 let copyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js'
+  },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, bundleOutputDir),
@@ -15,7 +17,7 @@ module.exports = {
     contentBase: bundleOutputDir
   },
   plugins: [
-    //files to be copied into the build
+    //extra files to be copied into the build
     new copyWebpackPlugin([{from: 'public/'}])
   ],
   module: {
