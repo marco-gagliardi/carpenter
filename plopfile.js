@@ -22,7 +22,7 @@ module.exports = function (plop) {
       {
         type: 'add',
         path: 'src/stores/{{lowerCase (plural name)}}.js',
-        templateFile: 'plop-templates/store-template.hbs'
+        templateFile: 'plop-templates/stores/store-template.hbs'
       },
       {
         type: 'modify',
