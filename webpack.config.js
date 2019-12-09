@@ -7,7 +7,7 @@ module.exports = {
     index: './src/index.js'
   },
   output: {
-    filename: '[name].js',
+    filename: 'main.js', //or '[name].js'
     path: path.resolve(__dirname, bundleOutputDir),
     publicPath: '/'
   },
@@ -24,7 +24,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules|plop-templates)/,
         use: {
           loader: "babel-loader",
           options: {
