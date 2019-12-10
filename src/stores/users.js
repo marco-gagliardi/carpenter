@@ -45,14 +45,14 @@ export default function reducer (state = DEFAULT_STATE, action) {
     case UPDATE.FULFILLED: {
       return {
         ...state,
-        [action.meta.id]: action.meta.payload
+        [action.meta.id]: action.meta.data
       }
     }
     /* Optimistic update approach */
     case PATCH.PENDING: {
       return {
         ...state,
-        [action.meta.id]: {...action.meta.payload}
+        [action.meta.id]: {...action.meta.data}
       }
     }
     /* optimistic update fallback: revert change */
@@ -76,10 +76,10 @@ export default function reducer (state = DEFAULT_STATE, action) {
       return state
   }
 }
-export function createUsers (payload) {
+export function createUsers (data) {
   return {
     type: CREATE,
-    payload: createResource(RESOURCE_ENDPOINT, payload)
+    payload: createResource(RESOURCE_ENDPOINT, data)
   }
 }
 
@@ -107,20 +107,20 @@ export function loadUsers ({limit, lastId, ...params}) {
   }
 }
 
-export function updateUsers (id, payload) {
+export function updateUsers (id, data) {
   return {
     type: UPDATE,
-    payload: updateResource(RESOURCE_ENDPOINT, id, payload),
-    meta: {id, payload}
+    payload: updateResource(RESOURCE_ENDPOINT, id, data),
+    meta: {id, data}
   }
 }
 
-export function patchUsers (id, payload) {
+export function patchUsers (id, data) {
   return (dispatch, getState) => {
     return dispatch({
       type: UPDATE,
-      payload: patchResource(RESOURCE_ENDPOINT, id, payload),
-      meta: {id, payload, snapshot: getState()['users'][id]}
+      payload: patchResource(RESOURCE_ENDPOINT, id, data),
+      meta: {id, data, snapshot: getState()['users'][id]}
     })
   }
 }
