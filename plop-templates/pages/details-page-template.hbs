@@ -1,0 +1,20 @@
+import React from 'react'
+import {object} from "prop-types";
+import Navbar from "../../components/Navbar";
+import {{properCase name}}Container from "../../containers/{{properCase (plural name)}}/{{properCase name}}Container";
+const {{properCase name}} = ({match}) => {
+  return (
+    <div>
+      <Navbar/>
+      <div className='Page__content'>
+        <{{properCase name}}Container id={match.params.id} />
+      </div>
+    </div>
+  )
+};
+
+{{properCase name}}.propTypes = {
+  match: object
+};
+
+export default {{properCase name}}

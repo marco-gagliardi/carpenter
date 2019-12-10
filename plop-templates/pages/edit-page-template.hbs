@@ -1,0 +1,20 @@
+import React from 'react'
+import Navbar from "../../components/Navbar";
+import Edit{{properCase name}}Container from "../../containers/{{properCase (plural name)}}/Edit{{properCase name}}Container";
+import {object} from "prop-types";
+const Edit{{properCase name}} = ({match}) => {
+  return (
+    <div>
+      <Navbar/>
+      <div className='Page__content'>
+        <Edit{{properCase name}}Container id={match.params.id} />
+      </div>
+    </div>
+  )
+};
+
+Edit{{properCase name}}.propTypes = {
+  match: object
+};
+
+export default Edit{{properCase name}}

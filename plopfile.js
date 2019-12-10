@@ -67,6 +67,26 @@ module.exports = function (plop) {
         path: 'src/containers/{{properCase (plural name)}}/{{properCase (plural name)}}ListContainer.js',
         templateFile: 'plop-templates/containers/list-container-template.hbs'
       },
+      {
+        type: 'add',
+        path: 'src/pages/{{properCase (plural name)}}/Create{{properCase name}}.js',
+        templateFile: 'plop-templates/pages/create-page-template.hbs'
+      },
+      {
+        type: 'add',
+        path: 'src/pages/{{properCase (plural name)}}/Edit{{properCase name}}.js',
+        templateFile: 'plop-templates/pages/edit-page-template.hbs'
+      },
+      {
+        type: 'add',
+        path: 'src/pages/{{properCase (plural name)}}/{{properCase name}}.js',
+        templateFile: 'plop-templates/pages/details-page-template.hbs'
+      },
+      {
+        type: 'add',
+        path: 'src/pages/{{properCase (plural name)}}/{{properCase (plural name)}}List.js',
+        templateFile: 'plop-templates/pages/list-page-template.hbs'
+      },
     ]
   });
 }

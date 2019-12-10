@@ -1,0 +1,17 @@
+import React from 'react'
+import Navbar from "../../components/Navbar";
+import {{properCase (plural name)}}ListContainer from "../../containers/{{properCase (plural name)}}/{{properCase (plural name)}}ListContainer";
+const {{properCase (plural name)}}List = props => {
+  return (
+    <div>
+      <Navbar/>
+      <div className='Page__content'>
+        <{{properCase (plural name)}}ListContainer />
+      </div>
+    </div>
+  )
+};
+
+{{properCase (plural name)}}List.propTypes = {};
+
+export default {{properCase (plural name)}}List
