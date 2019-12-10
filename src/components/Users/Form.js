@@ -1,21 +1,13 @@
 import React, {useState} from "react";
 import {func, object} from "prop-types";
+import dto from '../../config/dto/user'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import last from 'lodash/last'
 
-const DTO = {
-  id: '',
-  name: '',
-  address: {street: '', city: '', zipcode: ''},
-  company: {name: ''},
-  email: '',
-  phone: '',
-  username: '',
-  website: ''
-}
+const DTO = dto || {};
 
-const UserForm = props => {
+const Form = props => {
   const initialModel = {...DTO, ...props.user}
   const [model, setModel] = useState(initialModel)
 
@@ -37,19 +29,18 @@ const UserForm = props => {
               type={typeof value === 'number' ? 'number' : 'text'}
               name={key}
               value={value}
-              onChange={(event) => setValue(key, event.target.value)}
+              onChange={event => onChange(event.target.value)}
             />
         }
       </div>
     )
   }
 
-  const setValue = (prop, value) => {
+  const setValue = (key, value) => {
     const newModel = {...model}
-    set(newModel, prop, value)
+    set(newModel, key, value)
     setModel(newModel)
   }
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -57,7 +48,8 @@ const UserForm = props => {
         Object.keys(model).map(key => {
           return renderField({
             key,
-            value: get(model, key)
+            value: get(model, key),
+            onChange: (value) => setValue(key, value)
           })
         })
       }
@@ -68,8 +60,8 @@ const UserForm = props => {
   )
 }
 
-UserForm.propTypes = {
+Form.propTypes = {
   user: object,
   onSubmit: func
 }
-export default UserForm
+export default Form

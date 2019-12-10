@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {connect} from 'react-redux'
 import {func, object} from "prop-types";
 import {updateUsers, fetchUsers} from "../../stores/users";
-import UserForm from "../../components/Users/UserForm";
+import Form from "../../components/Users/Form";
 
 const EditUserContainer = props => {
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,7 @@ const EditUserContainer = props => {
     return <p>Cannot load element</p>
   }
 
-  return (<UserForm onSubmit={props.edit} user={props.user}/>)
+  return (<Form onSubmit={props.edit} user={props.user}/>)
 }
 
 EditUserContainer.propTypes = {

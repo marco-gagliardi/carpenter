@@ -2,10 +2,10 @@ import React from "react";
 import {connect} from 'react-redux'
 import {func} from "prop-types";
 import {createUsers} from "../../stores/users";
-import UserForm from "../../components/Users/UserForm";
+import Form from "../../components/Users/Form";
 
 const CreateUserContainer = props => {
-  return (<UserForm onSubmit={props.create}/>)
+  return (<Form onSubmit={props.create}/>)
 }
 
 CreateUserContainer.propTypes = {

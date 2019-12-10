@@ -17,6 +17,12 @@ module.exports = function (plop) {
         default: (answers) => pluralize(answers.name),
         message: 'Endpoint:'
       },
+      {
+        type: 'input',
+        name: 'dtoPath',
+        default: (answers) => `../../config/dto/default`,
+        message: 'DTO path:'
+      },
     ],
     actions: [
       {
@@ -35,7 +41,12 @@ module.exports = function (plop) {
         path: 'src/stores/index.js',
         pattern: /(\/\/ END OF REDUCERS)/g,
         template: '\t{{lowerCase (plural name)}},\n$1',
-      }
+      },
+      {
+        type: 'add',
+        path: 'src/components/{{properCase (plural name)}}/Form.js',
+        templateFile: 'plop-templates/components/form-template.hbs'
+      },
     ]
   });
 }
