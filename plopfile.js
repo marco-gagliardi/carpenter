@@ -47,6 +47,26 @@ module.exports = function (plop) {
         path: 'src/components/{{properCase (plural name)}}/Form.js',
         templateFile: 'plop-templates/components/form-template.hbs'
       },
+      {
+        type: 'add',
+        path: 'src/containers/{{properCase (plural name)}}/Create{{properCase name}}Container.js',
+        templateFile: 'plop-templates/containers/create-container-template.hbs'
+      },
+      {
+        type: 'add',
+        path: 'src/containers/{{properCase (plural name)}}/{{properCase name}}Container.js',
+        templateFile: 'plop-templates/containers/details-container-template.hbs'
+      },
+      {
+        type: 'add',
+        path: 'src/containers/{{properCase (plural name)}}/Edit{{properCase name}}Container.js',
+        templateFile: 'plop-templates/containers/edit-container-template.hbs'
+      },
+      {
+        type: 'add',
+        path: 'src/containers/{{properCase (plural name)}}/{{properCase (plural name)}}ListContainer.js',
+        templateFile: 'plop-templates/containers/list-container-template.hbs'
+      },
     ]
   });
 }

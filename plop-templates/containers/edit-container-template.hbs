@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {connect} from 'react-redux'
 import {func, object} from "prop-types";
-import { update{{properCase (plural name)}}, fetch{{properCase (plural name)}} } from "../../stores/{{plural name}}";
+import { update{{properCase name}}, fetch{{properCase name}} } from "../../stores/{{plural name}}";
 import Form from "../../components/{{properCase (plural name)}}/Form";
 
 const Edit{{properCase name}}Container = props => {
@@ -24,7 +24,7 @@ const Edit{{properCase name}}Container = props => {
     return <p>Cannot load element</p>
   }
 
-  return (<Form onSubmit={props.edit} {{name}}={props.{{name}}}/>)
+  return (<Form onSubmit={props.edit} {{name}}={ props.{{name}} }/>)
 }
 
 Edit{{properCase name}}Container.propTypes = {

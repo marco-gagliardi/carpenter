@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from "react-router-dom";
 import {func, object} from 'prop-types'
 import uniq from 'lodash/uniq'
-import {load{{properCase (plural name)}}, delete{{properCase name}}} from "../../stores/{{plural name}}";
+import { load{{properCase (plural name)}}, delete{{properCase name}} } from "../../stores/{{plural name}}";
 
 const PAGE_SIZE = 5
 const {{properCase (plural name)}}ListContainer = props => {
@@ -78,7 +78,7 @@ const {{properCase (plural name)}}ListContainer = props => {
   delete: func,
   {{plural name}}: object
 }
-const mapStateToProps = { {{plural name}} } => {
+const mapStateToProps = ({ {{plural name}} }) => {
   return ({
     {{plural name}}
   })
