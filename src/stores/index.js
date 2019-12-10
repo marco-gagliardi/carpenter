@@ -2,12 +2,12 @@ import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import promiseMiddleware from 'redux-promise-middleware'
 import thunk from 'redux-thunk'
 // STORES
-import users from './users'
+import users from './users' 
 // END OF STORES
 
 const reducers = combineReducers({
   // REDUCERS
-  users,
+	users,
 // END OF REDUCERS
 });
 

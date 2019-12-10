@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {connect} from 'react-redux'
 import {func, object} from "prop-types";
-import { update{{properCase name}}, fetch{{properCase name}} } from "../../stores/{{plural name}}";
+import { update{{properCase (plural name)}}, fetch{{properCase (plural name)}} } from "../../stores/{{plural name}}";
 import Form from "../../components/{{properCase (plural name)}}/Form";
 
 const Edit{{properCase name}}Container = props => {
@@ -41,4 +41,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   load: () => dispatch(fetch{{properCase (plural name)}}(ownProps.id)),
   edit: model => dispatch(update{{properCase (plural name)}}(model.id, model))
 })
-export default connect(mapStateToProps, mapDispatchToProps)(Edit{{plural name}}Container)
+export default connect(mapStateToProps, mapDispatchToProps)(Edit{{properCase name}}Container)

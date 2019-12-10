@@ -9,4 +9,4 @@ const userDTO = {
   website: ''
 }
 
-export  default userDTO
+export default userDTO

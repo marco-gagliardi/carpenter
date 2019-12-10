@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {connect} from 'react-redux'
-import {fetchUsers} from "../../stores/users";
+import { fetchUsers } from "../../stores/users";
 
 const UserContainer = props => {
 

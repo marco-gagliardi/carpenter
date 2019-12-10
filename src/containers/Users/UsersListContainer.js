@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from "react-router-dom";
 import {func, object} from 'prop-types'
 import uniq from 'lodash/uniq'
-import {loadUsers, deleteUsers} from "../../stores/users";
+import { loadUsers, deleteUser } from "../../stores/users";
 
 const PAGE_SIZE = 5
 const UsersListContainer = props => {
@@ -78,10 +78,10 @@ UsersListContainer.propTypes = {
   delete: func,
   users: object
 }
-const mapStateToProps = state => {
+const mapStateToProps = ({ users }) => {
   return ({
-      users: state.users
-    })
+    users
+  })
 }
 
 const mapDispatchToProps = dispatch => {

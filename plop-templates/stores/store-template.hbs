@@ -1,12 +1,21 @@
 import { defineAsyncActions } from './utils'
-import {getResource, loadResources, deleteResource, updateResource, createResource} from "../utils/api";
+import {
+  getResource,
+  loadResources,
+  deleteResource,
+  updateResource,
+  createResource,
+  OPERATORS,
+  patchResource
+} from "../utils/api";
 
-const RESOURCE = '{{plural name}}'
-const CREATE = defineAsyncActions('CREATE_{{constantCase name}}');
-const FETCH = defineAsyncActions('FETCH_{{constantCase name}}');
+const RESOURCE_ENDPOINT = '{{plural name}}'
+const CREATE = defineAsyncActions('CREATE_{{constantCase (plural name)}}');
+const FETCH = defineAsyncActions('FETCH_{{constantCase (plural name)}}');
 const LOAD = defineAsyncActions('LOAD_{{constantCase (plural name)}}');
-const UPDATE = defineAsyncActions('UPDATE_{{constantCase name}}');
-const DELETE = defineAsyncActions('DELETE_{{constantCase name}}');
+const UPDATE = defineAsyncActions('UPDATE_{{constantCase (plural name)}}');
+const PATCH = defineAsyncActions('PATCH_{{constantCase (plural name)}}');
+const DELETE = defineAsyncActions('DELETE_{{constantCase (plural name)}}');
 
 const DEFAULT_STATE = {
 };
@@ -36,7 +45,21 @@ export default function reducer (state = DEFAULT_STATE, action) {
     case UPDATE.FULFILLED: {
       return {
         ...state,
-        [action.meta.id]: action.meta.payload
+        [action.meta.id]: action.meta.data
+      }
+    }
+    /* Optimistic update approach */
+    case PATCH.PENDING: {
+      return {
+        ...state,
+        [action.meta.id]: {...action.meta.data}
+      }
+    }
+    /* optimistic update fallback: revert change */
+    case PATCH.REJECTED: {
+      return {
+        ...state,
+        [action.meta.id]: action.meta.snapshot
       }
     }
     case DELETE.FULFILLED: {
@@ -53,50 +76,60 @@ export default function reducer (state = DEFAULT_STATE, action) {
       return state
   }
 }
-export function add{{properCase name}} (payload) {
+export function create{{properCase (plural name)}} (data) {
   return {
     type: CREATE,
-    payload: createResource(RESOURCE, payload)
+    payload: createResource(RESOURCE_ENDPOINT, data)
   }
 }
 
-export function load{{properCase name}} (id) {
+export function fetch{{properCase (plural name)}} (id) {
   return dispatch => {
     const params = {};
 
     return dispatch({
       type: FETCH,
-      payload: getResource(RESOURCE, id, params),
+      payload: getResource(RESOURCE_ENDPOINT, id, params),
       meta: {id}
     })
   }
 }
 
-export function get{{properCase (plural name)}} ({limit, lastId, ...params}) {
+export function load{{properCase (plural name)}} ({limit, lastId, ...params}) {
   /* params should be something like {lastId, orderBy, orderDir, limit} */
-  if (limit) params._limit = limit
-  if (lastId) params.id_gte = lastId
+  if (limit) params[OPERATORS.limit] = limit
+  if (lastId) params[OPERATORS.lastId] = lastId
   return (dispatch) => {
     return dispatch({
       type: LOAD,
-      payload: loadResources(RESOURCE, params),
+      payload: loadResources(RESOURCE_ENDPOINT, params),
     }).then(payload => payload.value)
   }
 }
 
-export function edit{{properCase name}} (id, payload) {
+export function update{{properCase (plural name)}} (id, data) {
   return {
     type: UPDATE,
-    payload: updateResource(RESOURCE, id, payload),
-    meta: {id, payload}
+    payload: updateResource(RESOURCE_ENDPOINT, id, data),
+    meta: {id, data}
   }
 }
 
-export function remove{{properCase name}} (id) {
+export function patch{{properCase (plural name)}} (id, data) {
+  return (dispatch, getState) => {
+    return dispatch({
+      type: UPDATE,
+      payload: patchResource(RESOURCE_ENDPOINT, id, data),
+      meta: {id, data, snapshot: getState()['{{plural name}}'][id]}
+    })
+  }
+}
+
+export function delete{{properCase (plural name)}} (id) {
   return dispatch => {
     return dispatch({
       type: DELETE,
-      payload: deleteResource(RESOURCE, id),
+      payload: deleteResource(RESOURCE_ENDPOINT, id),
       meta: {id}
     })
   }

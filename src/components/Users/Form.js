@@ -7,8 +7,8 @@ import last from 'lodash/last'
 
 const DTO = dto || {};
 
-const Form = props => {
-  const initialModel = {...DTO, ...props.user}
+const UserForm = props => {
+  const initialModel = { ...DTO, ...props.user }
   const [model, setModel] = useState(initialModel)
 
   const handleSubmit = (e) => {
@@ -18,7 +18,7 @@ const Form = props => {
 
   const renderField = ({key, value, onChange}) => {
     return (
-      <div key={key} style={{'marginLeft': '8px'}}>
+      <div key={key} style={ {'marginLeft': '8px'} }>
         <span>{`${last(key.split('.'))}: `}</span>
         {
           typeof value === 'object'
@@ -60,8 +60,8 @@ const Form = props => {
   )
 }
 
-Form.propTypes = {
+UserForm.propTypes = {
   user: object,
   onSubmit: func
 }
-export default Form
+export default UserForm

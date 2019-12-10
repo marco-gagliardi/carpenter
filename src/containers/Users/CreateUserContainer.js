@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from 'react-redux'
 import {func} from "prop-types";
-import {createUsers} from "../../stores/users";
+import { createUsers } from "../../stores/users";
 import Form from "../../components/Users/Form";
 
 const CreateUserContainer = props => {
