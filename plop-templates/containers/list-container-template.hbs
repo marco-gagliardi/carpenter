@@ -1,0 +1,93 @@
+import React, {useState, useEffect, Fragment} from "react";
+import {connect} from 'react-redux'
+import {Link} from "react-router-dom";
+import {func, object} from 'prop-types'
+import uniq from 'lodash/uniq'
+import {load{{properCase (plural name)}}, delete{{properCase name}}} from "../../stores/{{plural name}}";
+
+const PAGE_SIZE = 5
+const {{properCase (plural name)}}ListContainer = props => {
+  const [list, setList] = useState([]);
+  const [params, setParams] = useState({lastId: undefined, limit: PAGE_SIZE});
+  const [loading, setLoading] = useState(true);
+
+  const load = () => {
+    props.load(params)
+      .catch(() => {})
+      .then(payload => {
+        const length = payload.length
+        const lastId = !length ? null : payload[length - 1].id
+        setList(uniq([...list, ...payload.map(x => x.id)]))
+        setParams({...params, lastId})
+      })
+      .finally(() => setLoading(false))
+  }
+
+  const remove = (id) => {
+    props.delete(id)
+      .catch(() => {})
+      .then(() => {
+        setList(list.filter(x => x !== id))
+      })
+      .finally(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    load()
+  }, []);
+
+  const renderList = () => {
+    return (
+      list.length === 0
+        ? <div>No elements... </div>
+        : <Fragment>
+          <ul>
+            {list.map(id => {
+              const u = props.{{plural name}}[id]
+              if (u) {
+                return (
+                  <li key={u.id}><Link to={`/{{plural name}}/${u.id}`}>{u.name}</Link>
+                    <Link to={`/{{plural name}}/${u.id}/edit`}><button>Edit</button></Link>
+                    <button onClick={() => remove(u.id)}>Delete</button></li>
+                )
+              } else {
+                return null
+              }
+            })}
+          </ul>
+          <p><button onClick={() => load()}>More</button></p>
+        </Fragment>
+    )
+  }
+
+  if(loading) {
+    return <div>Loading...</div>
+  }
+
+  return (
+    <Fragment>
+      <p><Link to={'/{{plural name}}/new'}><button>New</button></Link></p>
+      {renderList()}
+    </Fragment>
+  )
+
+}
+
+{{properCase (plural name)}}ListContainer.propTypes = {
+  load: func,
+  delete: func,
+  {{plural name}}: object
+}
+const mapStateToProps = { {{plural name}} } => {
+  return ({
+    {{plural name}}
+  })
+}
+
+const mapDispatchToProps = dispatch => {
+  return ({
+    load: (params) => dispatch(load{{properCase (plural name)}}(params)),
+    delete: (id) => dispatch(delete{{properCase (plural name)}}(id))
+  })
+}
+export default connect(mapStateToProps, mapDispatchToProps)({{properCase (plural name)}}ListContainer)

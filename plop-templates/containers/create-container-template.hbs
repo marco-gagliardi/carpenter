@@ -1,0 +1,17 @@
+import React from "react";
+import {connect} from 'react-redux'
+import {func} from "prop-types";
+import {create{{properCase (plural name)}} from "../../stores/{{plural name}}";
+import Form from "../../components/{{properCase (plural name)}}/Form";
+
+const Create{{properCase name}}Container = props => {
+  return (<Form onSubmit={props.create}/>)
+}
+
+Create{{properCase name}}Container.propTypes = {
+  create: func
+}
+const mapDispatchToProps = dispatch => ({
+  create: model => dispatch(create{{properCase (plural name)}}(model))
+})
+export default connect(null, mapDispatchToProps)(Create{{properCase name}}Container)

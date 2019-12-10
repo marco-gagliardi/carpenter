@@ -1,0 +1,40 @@
+import React, {useEffect, useState} from "react";
+import {connect} from 'react-redux'
+import { fetch{{properCase (plural name)}} } from "../../stores/{{properCase (plural name)}}";
+
+const {{properCase name}}Container = props => {
+
+  const [loading, setLoading] = useState(true);
+
+  const load = () => {
+    props.load()
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    load()
+  }, []);
+
+
+  if(loading) {
+    return <div>Loading...</div>
+  }
+  if (!props.{{name}}) {
+    return <p>Cannot load element</p>
+  }
+  return (
+    Object.keys(props.{{name}}).map(key => <p key={key}>{key}: {props.{{name}}[key].toString()}</p>)
+  )
+
+}
+
+const mapStateToProps = (state, ownProps) => ({
+  {{name}}: state.{{plural name}}[ownProps.id]
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  load: () => dispatch(fetch{{properCase (plural name)}}(ownProps.id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)({{properCase name}}Container)
